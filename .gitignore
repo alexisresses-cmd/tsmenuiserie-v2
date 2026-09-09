@@ -1,1 +1,4 @@
 .DS_Store
+.idea/
+.claude/
+cahier-des-charges-*.md
