@@ -338,7 +338,28 @@ a.bouton:hover {
 
 #avis figure { margin: 0; }
 #avis blockquote { margin: 0 0 1rem; font-size: 1.125rem; font-style: italic; }
-#avis figcaption { font-family: var(--font-label); color: var(--brun-titre); }
+#avis figcaption {
+  font-family: var(--font-label);
+  color: var(--brun-titre);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Pastille d'initiales à la place d'un portrait : les photos du site actuel
+   sont des portraits de banque d'images livrés avec le thème, pas les clients. */
+.pastille {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--rouge);
+  color: var(--blanc);
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
 
 /* FAQ */
 #faq h3 { margin-top: 2rem; }
