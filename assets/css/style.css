@@ -148,13 +148,8 @@ header, footer {
   color: var(--blanc);
 }
 footer address a:hover { color: var(--rouge-clair); }
-header > a {
-  font-family: var(--font-titre);
-  font-weight: 700;
-  font-size: 1.25rem;
-  color: var(--blanc);
-  text-decoration: none;
-}
+header > a { display: inline-block; }
+header > a img { height: 2.25rem; width: auto; }
 header nav ul, footer nav ul {
   list-style: none;
   margin: 1rem 0 0;
@@ -171,6 +166,24 @@ header nav a, footer nav a, footer address a {
 }
 header nav a:hover, footer nav a:hover { color: var(--rouge-clair); }
 footer address { font-style: normal; margin-bottom: 1rem; }
+
+/* En-tête posé sur le carrousel, comme sur le site actuel : transparent,
+   séparé de la photo par un simple filet clair. Réservé aux écrans où la
+   navigation tient sur une ligne — en dessous, elle est trop haute pour
+   recouvrir la bannière sans la manger, et l'en-tête reste dans le flux. */
+@media (min-width: 48em) {
+  body:has(#accueil) { position: relative; }
+  body:has(#accueil) header {
+    position: absolute;
+    inset: 0 0 auto 0;
+    z-index: 2;
+    background: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  }
+  /* La première diapositive laisse la place de l'en-tête au-dessus du texte. */
+  body:has(#accueil) .diapo { padding-block-start: calc(var(--section-y) + 6rem); }
+  body:has(#accueil) header > a img { height: 3rem; }
+}
 
 /* Boutons et liens d'action */
 button,
@@ -387,6 +400,7 @@ main > h1 { padding-top: var(--section-y); }
   }
 
   .diapo { padding-block: 8rem calc(8rem + 2.5rem); }
+  body:has(#accueil) .diapo { padding-block-start: calc(8rem + 3rem); }
   #accueil h1 { font-size: 4rem; max-width: 20ch; }
 
   /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */

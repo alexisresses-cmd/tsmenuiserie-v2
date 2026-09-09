@@ -66,13 +66,18 @@ for cid in re.findall(r'<(?:input|textarea)[^>]*id="([^"]+)"', form):
 # --- images : alt présent et unique (exigence SEO sur la galerie projets) ---
 for f in PAGES:
     alts = []
+    m = re.search(r'(?s)<ul id="galerie">.*?</ul>', lire(f))
+    galerie = m.group(0) if m else ''
     for img in re.findall(r'<img[^>]*>', lire(f)):
         m = re.search(r'alt="([^"]*)"', img)
         if not m or not m.group(1).strip():
             pb.append(f'{f} : <img> sans alt — {img[:70]}')
         else:
             alts.append(m.group(1))
-        if 'loading="lazy"' not in img: pb.append(f'{f} : <img> sans loading=lazy — {img[:70]}')
+        # lazy uniquement pour la galerie : le logo est au-dessus de la ligne
+        # de flottaison, le retarder dégraderait le LCP.
+        if img in galerie and 'loading="lazy"' not in img:
+            pb.append(f'{f} : photo de galerie sans loading=lazy — {img[:70]}')
     for a in set(alts):
         if alts.count(a) > 1: pb.append(f'{f} : alt dupliqué "{a}" ({alts.count(a)} fois)')
 
