@@ -267,7 +267,8 @@
   <a href="/" aria-label="TS Menuiserie, accueil">
     <img src="/assets/img/logo-header.webp" width="500" height="112" alt="TS Menuiserie">
   </a>
-  <nav aria-label="Navigation principale">
+  <button class="menu-bouton" aria-expanded="false" aria-controls="menu-principal" aria-label="Ouvrir le menu"><span></span></button>
+  <nav id="menu-principal" aria-label="Navigation principale">
     <ul>
       <li><a href="#services">Services</a></li>
       <li><a href="#projets">Projets</a></li>
@@ -755,6 +756,7 @@
   <p><small>TS Menuiserie 2025 ©</small></p>
 </footer>
 
+<script src="/assets/js/menu.js" defer></script>
 <script src="/assets/js/hero-slider.js" defer></script>
 <script src="/assets/js/gallery-filter.js" defer></script>
 <script src="/assets/js/counters.js" defer></script>

@@ -53,6 +53,13 @@
   </div>
 </section>
 
+<!-- Fixture menu mobile. -->
+<header>
+  <button class="menu-bouton" aria-expanded="false" aria-controls="menu-principal" aria-label="Ouvrir le menu"><span></span></button>
+  <nav id="menu-principal"><ul><li><a href="#services">Services</a></li></ul></nav>
+</header>
+
+<script src="../assets/js/menu.js"></script>
 <script src="../assets/js/hero-slider.js"></script>
 <script src="../assets/js/gallery-filter.js"></script>
 <script src="../assets/js/counters.js"></script>
@@ -151,6 +158,22 @@ verifie('les deux diapositives sont dans le HTML', document.querySelectorAll('.d
 piste.scrollLeft = 200;              // simule la fin du défilement vers la 2e
 piste.dispatchEvent(new Event('scroll'));
 verifie('le point actif suit la diapositive affichée', pointCourant() === 'false,true');
+
+// --- Menu mobile ---
+const bouton = document.querySelector('.menu-bouton');
+const navMenu = document.getElementById('menu-principal');
+const ouvert = () => bouton.getAttribute('aria-expanded') === 'true';
+
+verifie('le menu est fermé au chargement', !ouvert());
+bouton.click();
+verifie('le bouton ouvre le menu', ouvert());
+verifie('le bouton annonce alors la fermeture', bouton.getAttribute('aria-label') === 'Fermer le menu');
+navMenu.querySelector('a').click();
+verifie('suivre une ancre referme le menu', !ouvert());
+bouton.click();
+document.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape' }));
+verifie('Échap referme le menu', !ouvert());
+verifie('Échap rend le focus au bouton', document.activeElement === bouton);
 
 document.getElementById('resultats').textContent =
   echecs.length ? 'ÉCHECS :\n- ' + echecs.join('\n- ') : 'OK — tous les tests passent';

@@ -147,9 +147,50 @@ header, footer {
   background: var(--brun-tres-fonce);
   color: var(--blanc);
 }
-footer address a:hover { color: var(--rouge-clair); }
-header > a { display: inline-block; }
-header > a img { height: 2.25rem; width: auto; }
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+/* Menu mobile : bouton + aria-expanded, la navigation est son frère direct. */
+.menu-bouton {
+  padding: 0.75rem;
+  background: transparent;
+  border-color: transparent;
+}
+.menu-bouton:hover { background: transparent; border-color: transparent; }
+.menu-bouton span,
+.menu-bouton span::before,
+.menu-bouton span::after {
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--blanc);
+  transition: transform 0.2s, background-color 0.2s;
+}
+.menu-bouton span::before,
+.menu-bouton span::after { content: ''; position: relative; }
+.menu-bouton span::before { top: -0.5rem; }
+.menu-bouton span::after { top: calc(0.5rem - 2px); }
+.menu-bouton[aria-expanded="true"] span { background: transparent; }
+.menu-bouton[aria-expanded="true"] span::before { transform: translateY(0.5rem) rotate(45deg); }
+.menu-bouton[aria-expanded="true"] span::after { transform: translateY(calc(-0.5rem + 2px)) rotate(-45deg); }
+
+.menu-bouton[aria-expanded="false"] + nav { display: none; }
+
+/* Panneau déroulant : l'en-tête étant transparent sur la bannière, le menu
+   ouvert porte son propre fond. */
+header nav {
+  position: absolute;
+  inset-inline: 0;
+  top: 100%;
+  background: var(--brun-tres-fonce);
+  padding: 0.5rem var(--gouttiere) 1.5rem;
+}
+header nav ul { flex-direction: column; margin-top: 0; }
+
 header nav ul, footer nav ul {
   list-style: none;
   margin: 1rem 0 0;
@@ -168,22 +209,18 @@ header nav a:hover, footer nav a:hover { color: var(--rouge-clair); }
 footer address { font-style: normal; margin-bottom: 1rem; }
 
 /* En-tête posé sur le carrousel, comme sur le site actuel : transparent,
-   séparé de la photo par un simple filet clair. Réservé aux écrans où la
-   navigation tient sur une ligne — en dessous, elle est trop haute pour
-   recouvrir la bannière sans la manger, et l'en-tête reste dans le flux. */
-@media (min-width: 48em) {
-  body:has(#accueil) { position: relative; }
-  body:has(#accueil) header {
-    position: absolute;
-    inset: 0 0 auto 0;
-    z-index: 2;
-    background: transparent;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-  }
-  /* La première diapositive laisse la place de l'en-tête au-dessus du texte. */
-  body:has(#accueil) .diapo { padding-block-start: calc(var(--section-y) + 6rem); }
-  body:has(#accueil) header > a img { height: 3rem; }
+   séparé de la photo par un simple filet clair. Seulement sur l'accueil :
+   les pages légales n'ont pas de bannière sous l'en-tête. */
+body:has(#accueil) { position: relative; }
+body:has(#accueil) header {
+  position: absolute;
+  inset: 0 0 auto 0;
+  z-index: 2;
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
+/* La première diapositive laisse la place de l'en-tête au-dessus du texte. */
+body:has(#accueil) .diapo { padding-block-start: calc(var(--section-y) + 4.5rem); }
 
 /* Boutons et liens d'action */
 button,
@@ -352,16 +389,18 @@ main > h1 { padding-top: var(--section-y); }
   h1 { font-size: 3rem; }
   h2 { font-size: 2.25rem; }
 
-  /* En-tête sur une seule ligne : logo à gauche, navigation à droite. */
-  header {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-block: 1.25rem;
+  /* Assez de place pour la navigation en clair : le hamburger disparaît et
+     le panneau se remet dans le flux. */
+  header { padding-block: 1.25rem; }
+  .menu-bouton { display: none; }
+  .menu-bouton[aria-expanded="false"] + nav,
+  header nav {
+    display: block;
+    position: static;
+    background: transparent;
+    padding: 0;
   }
-  header nav ul { margin-top: 0; }
+  header nav ul { flex-direction: row; margin-top: 0; }
 
   /* Le texte des sections d'intro reste lisible : pas de lignes à rallonge. */
   .diapo p, #presentation p { max-width: 46rem; }
@@ -401,6 +440,7 @@ main > h1 { padding-top: var(--section-y); }
 
   .diapo { padding-block: 8rem calc(8rem + 2.5rem); }
   body:has(#accueil) .diapo { padding-block-start: calc(8rem + 3rem); }
+  body:has(#accueil) header > a img { height: 3rem; }
   #accueil h1 { font-size: 4rem; max-width: 20ch; }
 
   /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */
