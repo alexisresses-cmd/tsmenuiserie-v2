@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Tests — galerie et compteurs</title>
+</head>
+<body>
+<h1>Tests</h1>
+<pre id="resultats">exécution…</pre>
+
+<!-- Fixtures : même structure que index.html, contenu réduit. -->
+<section id="projets">
+  <div role="group">
+    <button type="button" data-filter="all" aria-pressed="true">Tous</button>
+    <button type="button" data-filter="cuisine" aria-pressed="false">Cuisine</button>
+    <button type="button" data-filter="escalier" aria-pressed="false">Escalier</button>
+  </div>
+  <ul id="galerie">
+    <li data-category="cuisine">c1</li>
+    <li data-category="cuisine">c2</li>
+    <li data-category="escalier">e1</li>
+    <li data-category="porte-fenetre">p1</li>
+  </ul>
+</section>
+
+<section id="chiffres">
+  <ul><li><span data-counter="128">0</span></li></ul>
+</section>
+
+<script src="../assets/js/gallery-filter.js"></script>
+<script src="../assets/js/counters.js"></script>
+<script>
+const echecs = [];
+function verifie(nom, condition) { if (!condition) echecs.push(nom); }
+
+const visibles = () => [...document.querySelectorAll('#galerie li')].filter(li => !li.hidden).length;
+const presse = sel => document.querySelector(sel).getAttribute('aria-pressed');
+
+// Filtrage
+document.querySelector('[data-filter="cuisine"]').click();
+verifie('cuisine ne laisse que ses 2 photos', visibles() === 2);
+verifie('le bouton cuisine devient actif', presse('[data-filter="cuisine"]') === 'true');
+verifie('le bouton Tous redevient inactif', presse('[data-filter="all"]') === 'false');
+
+document.querySelector('[data-filter="escalier"]').click();
+verifie('changer de filtre ne cumule pas', visibles() === 1);
+
+document.querySelector('[data-filter="all"]').click();
+verifie('Tous réaffiche toutes les photos', visibles() === 4);
+verifie('une catégorie sans bouton reste visible sous Tous',
+  !document.querySelector('[data-category="porte-fenetre"]').hidden);
+
+// Compteur : l'easing doit finir exactement sur la cible (pas 127 par arrondi).
+// requestAnimationFrame et performance.now sont remplacés par un faux temps :
+// le test reste déterministe et ne dépend pas de l'onglet ni du rendu.
+const compteur = document.querySelector('[data-counter]');
+let faussePendule = 0;
+const vraiRaf = window.requestAnimationFrame;
+const vraiNow = performance.now.bind(performance);
+window.requestAnimationFrame = cb => { faussePendule += 100; cb(faussePendule); };
+performance.now = () => faussePendule;
+
+window.animerCompteur(compteur);
+
+window.requestAnimationFrame = vraiRaf;
+performance.now = vraiNow;
+
+verifie('le compteur atteint exactement sa cible', compteur.textContent === '128');
+verifie('le compteur ne dépasse pas sa cible', Number(compteur.textContent) <= 128);
+
+// Une cible absente ou illisible ne doit pas produire NaN.
+const vide = document.createElement('span');
+vide.dataset.counter = '';
+faussePendule = 0;
+window.requestAnimationFrame = cb => { faussePendule += 100; cb(faussePendule); };
+performance.now = () => faussePendule;
+window.animerCompteur(vide);
+window.requestAnimationFrame = vraiRaf;
+performance.now = vraiNow;
+verifie('une cible vide donne 0, pas NaN', vide.textContent === '0');
+
+document.getElementById('resultats').textContent =
+  echecs.length ? 'ÉCHECS :\n- ' + echecs.join('\n- ') : 'OK — tous les tests passent';
+document.title = echecs.length ? 'ÉCHEC' : 'OK';
+</script>
+</body>
+</html>
