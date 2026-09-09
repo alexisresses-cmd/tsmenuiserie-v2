@@ -115,7 +115,6 @@ main > section {
   left: 0;
   right: 0;
   display: flex;
-  align-items: center;
   gap: 0.5rem;
   padding-inline: var(--gouttiere);
   max-width: var(--max-largeur);
@@ -132,19 +131,6 @@ main > section {
 .diapos-controles button[aria-current="true"] {
   background: var(--rouge-clair);
   border-color: var(--rouge-clair);
-}
-.diapos-controles .lecture {
-  margin-inline-start: auto;
-  padding: 0.35rem 0.9rem;
-  font-size: 0.8125rem;
-  background: transparent;
-  border-color: var(--blanc);
-  color: var(--blanc);
-}
-.diapos-controles .lecture:hover {
-  background: var(--blanc);
-  border-color: var(--blanc);
-  color: var(--brun-tres-fonce);
 }
 #chiffres { background: var(--creme); max-width: none; }
 

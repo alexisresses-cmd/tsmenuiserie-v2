@@ -273,9 +273,10 @@
 
 <main>
 
-  <!-- Carrousel de bannière, repris du site actuel (Owl Carousel, 2 slides,
-       défilement automatique). Les deux slides sont dans le HTML : elles
-       restent lisibles par les crawlers et sans JavaScript.
+  <!-- Carrousel de bannière, repris du site actuel (2 slides). Défilement
+       manuel : pas d'autoplay, donc pas de bouton pause à prévoir.
+       Les deux slides sont dans le HTML : elles restent lisibles par les
+       crawlers et sans JavaScript.
        Images de fond banner-7.jpg et banner-8.jpg à intégrer en phase 6. -->
   <section id="accueil" aria-roledescription="carrousel" aria-label="Présentation de TS Menuiserie">
     <ul class="diapos">
@@ -296,10 +297,9 @@
         </div>
       </li>
     </ul>
-    <div class="diapos-controles">
+    <div class="diapos-controles" role="group" aria-label="Choisir la diapositive">
       <button type="button" data-diapo="0" aria-current="true" aria-label="Aller à la diapositive 1"></button>
       <button type="button" data-diapo="1" aria-current="false" aria-label="Aller à la diapositive 2"></button>
-      <button type="button" class="lecture">Mettre en pause le défilement</button>
     </div>
   </section>
 

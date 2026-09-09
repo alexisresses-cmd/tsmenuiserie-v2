@@ -50,7 +50,6 @@
   <div class="diapos-controles">
     <button type="button" data-diapo="0" aria-current="true"></button>
     <button type="button" data-diapo="1" aria-current="false"></button>
-    <button type="button" class="lecture">Mettre en pause le défilement</button>
   </div>
 </section>
 
@@ -145,20 +144,9 @@ verifie('sans clés EmailJS, la saisie de l’utilisateur est conservée', form.
 
 // --- Carrousel de bannière ---
 const piste = document.querySelector('#accueil .diapos');
-const lecture = document.querySelector('.diapos-controles .lecture');
 const pointCourant = () => [...document.querySelectorAll('[data-diapo]')].map(b => b.getAttribute('aria-current')).join(',');
 
 verifie('les deux diapositives sont dans le HTML', document.querySelectorAll('.diapo').length === 2);
-verifie('le défilement automatique démarre', carrousel.enLecture());
-
-lecture.click();
-verifie('le bouton met le défilement en pause', !carrousel.enLecture());
-verifie('le bouton annonce alors la reprise', lecture.textContent.includes('Reprendre'));
-lecture.click();
-verifie('le bouton relance le défilement', carrousel.enLecture());
-
-document.querySelector('[data-diapo="1"]').click();
-verifie('naviguer à la main coupe le défilement automatique', !carrousel.enLecture());
 
 piste.scrollLeft = 200;              // simule la fin du défilement vers la 2e
 piste.dispatchEvent(new Event('scroll'));
