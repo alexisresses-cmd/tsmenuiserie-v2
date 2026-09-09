@@ -7,6 +7,8 @@
   /* Palette */
   --rouge: #d90429;          /* --thm-base du thème : accent, boutons, liens actifs */
   --rouge-fonce: #ca1d1d;    /* --thm-secondary : survol */
+  --rouge-clair: #ec5a52;    /* même rouge éclairci, pour lisibilité sur fond sombre
+                                (le rouge de marque ne donne que 3.33:1 sur #221715) */
   --brun-tres-fonce: #221715;/* fond des sections sombres */
   --brun-titre: #29231f;     /* couleur des titres */
   --texte: #444444;
@@ -83,6 +85,7 @@ main > section {
   max-width: none;
 }
 #accueil h1, #escalier h2 { color: var(--blanc); }
+#accueil > p:first-child, #escalier > p:first-child { color: var(--rouge-clair); }
 #chiffres { background: var(--creme); max-width: none; }
 
 /* En-tête / pied de page */
@@ -91,6 +94,7 @@ header, footer {
   background: var(--brun-tres-fonce);
   color: var(--blanc);
 }
+footer address a:hover { color: var(--rouge-clair); }
 header > a {
   font-family: var(--font-titre);
   font-weight: 700;
@@ -112,7 +116,7 @@ header nav a, footer nav a, footer address a {
   color: var(--blanc);
   text-decoration: none;
 }
-header nav a:hover, footer nav a:hover { color: var(--rouge); }
+header nav a:hover, footer nav a:hover { color: var(--rouge-clair); }
 footer address { font-style: normal; margin-bottom: 1rem; }
 
 /* Boutons et liens d'action */
