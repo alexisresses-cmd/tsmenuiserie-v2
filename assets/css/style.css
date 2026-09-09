@@ -87,7 +87,9 @@ main > section {
   padding: 0;
   position: relative;
 }
-#accueil h1, #accueil h2 { color: var(--blanc); }
+/* Les deux diapositives ont le même poids visuel : le titre de la seconde
+   est un h2 pour la hiérarchie du document, pas pour la taille affichée. */
+#accueil h1, #accueil h2 { color: var(--blanc); font-size: 2.25rem; }
 .diapo div > p:first-child { color: var(--rouge-clair); }
 
 /* Carrousel : défilement horizontal natif avec accroche CSS. Sans JavaScript,
@@ -393,6 +395,7 @@ main > h1 { padding-top: var(--section-y); }
   }
   h1 { font-size: 3rem; }
   h2 { font-size: 2.25rem; }
+  #accueil h1, #accueil h2 { font-size: 3rem; }
 
   /* Assez de place pour la navigation en clair : le hamburger disparaît et
      le panneau se remet dans le flux. */
@@ -446,7 +449,7 @@ main > h1 { padding-top: var(--section-y); }
 
   .diapo { padding-block: 8rem calc(8rem + 2.5rem); }
   body:has(#accueil) .diapo { padding-block-start: calc(8rem + 3rem); }
-  #accueil h1 { font-size: 4rem; max-width: 20ch; }
+  #accueil h1, #accueil h2 { font-size: 4rem; max-width: 20ch; }
 
   /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */
   #presentation p { max-width: 60ch; }
