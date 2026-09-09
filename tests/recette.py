@@ -70,8 +70,13 @@ for f in PAGES:
     galerie = m.group(0) if m else ''
     for img in re.findall(r'<img[^>]*>', lire(f)):
         m = re.search(r'alt="([^"]*)"', img)
-        if not m or not m.group(1).strip():
-            pb.append(f'{f} : <img> sans alt — {img[:70]}')
+        if not m:
+            pb.append(f'{f} : <img> sans attribut alt — {img[:70]}')
+        elif not m.group(1).strip():
+            # alt="" est correct pour une icône décorative dont le libellé est
+            # juste à côté ; interdit pour une photo de la galerie.
+            if img in galerie:
+                pb.append(f'{f} : photo de galerie avec alt vide — {img[:70]}')
         else:
             alts.append(m.group(1))
         # lazy uniquement pour la galerie : le logo est au-dessus de la ligne

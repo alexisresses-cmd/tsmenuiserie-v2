@@ -272,6 +272,19 @@ a.bouton:hover {
   color: var(--blanc);
 }
 
+/* Illustrations de section (présentation, étapes) */
+.illustration {
+  border-radius: var(--radius);
+  margin-bottom: 1.5rem;
+  width: 100%;
+  max-width: 32rem;
+}
+
+/* Icônes reprises du site actuel. Décoratives : le libellé est juste à côté,
+   d'où alt="" — les annoncer deux fois n'apporterait rien. */
+#services img, #chiffres img { width: 3rem; height: auto; margin-bottom: 1rem; }
+#avis img { width: 2.5rem; height: auto; margin-bottom: 1rem; }
+
 /* Listes de contenu : services, projets, étapes, chiffres, avis */
 /* Grilles fluides : auto-fit + minmax fait le passage 1 → 2 → 3 colonnes
    tout seul, sans media query. Une seule valeur à régler par grille. */
@@ -410,6 +423,22 @@ main > h1 { padding-top: var(--section-y); }
     padding: 0;
   }
   header nav ul { flex-direction: row; margin-top: 0; }
+
+  /* Illustration à droite, texte à gauche, comme sur le site actuel. */
+  #presentation, #etapes {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    column-gap: 3rem;
+    align-items: start;
+  }
+  #presentation > :not(.illustration), #etapes > :not(.illustration) { grid-column: 1; }
+  #presentation > .illustration, #etapes > .illustration {
+    grid-column: 2;
+    grid-row: 1 / -1;
+    align-self: center;
+    margin-bottom: 0;
+    max-width: none;
+  }
 
   /* Le texte des sections d'intro reste lisible : pas de lignes à rallonge. */
   .diapo p, #presentation p { max-width: 46rem; }
