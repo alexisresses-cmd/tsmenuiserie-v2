@@ -63,7 +63,8 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* Sur-titre rouge en capitales, présent au-dessus de chaque titre de section
    sur le site actuel ("MENUISERIE", "ESCALIER", "AVIS"...). */
-main > section > p:first-child {
+main > section > p:first-child,
+.diapo div > p:first-child {
   font-family: var(--font-label);
   font-size: 0.875rem;
   font-weight: 600;
@@ -79,13 +80,72 @@ main > section {
   max-width: var(--max-largeur);
   margin-inline: auto;
 }
-#accueil, #escalier {
+#accueil {
   background: var(--brun-tres-fonce);
   color: var(--blanc);
   max-width: none;
+  padding: 0;
+  position: relative;
 }
-#accueil h1, #escalier h2 { color: var(--blanc); }
-#accueil > p:first-child, #escalier > p:first-child { color: var(--rouge-clair); }
+#accueil h1, #accueil h2 { color: var(--blanc); }
+.diapo div > p:first-child { color: var(--rouge-clair); }
+
+/* Carrousel : défilement horizontal natif avec accroche CSS. Sans JavaScript,
+   il reste balayable au doigt et à la molette. */
+.diapos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.diapos::-webkit-scrollbar { display: none; }
+.diapo {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  padding: var(--section-y) var(--gouttiere) calc(var(--section-y) + 2.5rem);
+}
+.diapo > div { max-width: var(--max-largeur); margin-inline: auto; }
+
+.diapos-controles {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-inline: var(--gouttiere);
+  max-width: var(--max-largeur);
+  margin-inline: auto;
+}
+.diapos-controles button[data-diapo] {
+  width: 0.75rem;
+  height: 0.75rem;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid var(--blanc);
+  background: transparent;
+}
+.diapos-controles button[aria-current="true"] {
+  background: var(--rouge-clair);
+  border-color: var(--rouge-clair);
+}
+.diapos-controles .lecture {
+  margin-inline-start: auto;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.8125rem;
+  background: transparent;
+  border-color: var(--blanc);
+  color: var(--blanc);
+}
+.diapos-controles .lecture:hover {
+  background: var(--blanc);
+  border-color: var(--blanc);
+  color: var(--brun-tres-fonce);
+}
 #chiffres { background: var(--creme); max-width: none; }
 
 /* En-tête / pied de page */
@@ -121,8 +181,7 @@ footer address { font-style: normal; margin-bottom: 1rem; }
 
 /* Boutons et liens d'action */
 button,
-#accueil a[href="#contact"],
-#escalier a[href="#contact"] {
+a.bouton {
   display: inline-block;
   font-family: var(--font-label);
   font-size: 1rem;
@@ -137,8 +196,7 @@ button,
   transition: background-color 0.3s, border-color 0.3s;
 }
 button:hover,
-#accueil a[href="#contact"]:hover,
-#escalier a[href="#contact"]:hover {
+a.bouton:hover {
   background: var(--rouge-fonce);
   border-color: var(--rouge-fonce);
   color: var(--blanc);
@@ -295,7 +353,7 @@ main > h1 { padding-top: var(--section-y); }
   header nav ul { margin-top: 0; }
 
   /* Le texte des sections d'intro reste lisible : pas de lignes à rallonge. */
-  #accueil > p, #escalier > p, #presentation p { max-width: 46rem; }
+  .diapo p, #presentation p { max-width: 46rem; }
 
   footer {
     display: grid;
@@ -326,11 +384,11 @@ main > h1 { padding-top: var(--section-y); }
   h1 { font-size: 3.5rem; }
 
   /* Les sections pleine largeur gardent leur contenu dans le conteneur. */
-  #accueil, #escalier, #chiffres, header, footer {
+  .diapo, .diapos-controles, #chiffres, header, footer {
     padding-inline: max(var(--gouttiere), (100vw - var(--max-largeur)) / 2 + var(--gouttiere));
   }
 
-  #accueil { padding-block: 8rem; }
+  .diapo { padding-block: 8rem calc(8rem + 2.5rem); }
   #accueil h1 { font-size: 4rem; max-width: 20ch; }
 
   /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */

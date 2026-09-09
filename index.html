@@ -273,18 +273,34 @@
 
 <main>
 
-  <section id="accueil">
-    <p>Menuiserie sur mesure</p>
-    <h1>Créations uniques, selon vos envies</h1>
-    <p>Chaque projet est pensé et fabriqué sur mesure, en fonction de vos besoins et de votre espace. Du mobilier personnalisé aux agencements intérieurs, bénéficiez d’un savoir-faire artisanal alliant tradition, précision et finitions soignées.</p>
-    <p><a href="#contact">Me contacter</a></p>
-  </section>
-
-  <section id="escalier">
-    <p>Escalier</p>
-    <h2>L’art de l’escalier sur mesure</h2>
-    <p>Chaque escalier est une pièce unique, conçue pour s’intégrer harmonieusement à votre intérieur. Formes, matériaux, finitions… tout est pensé sur mesure. Faites confiance à un artisan passionné pour sublimer votre espace avec un escalier en bois alliant style, solidité et précision.</p>
-    <p><a href="#contact">Me contacter</a></p>
+  <!-- Carrousel de bannière, repris du site actuel (Owl Carousel, 2 slides,
+       défilement automatique). Les deux slides sont dans le HTML : elles
+       restent lisibles par les crawlers et sans JavaScript.
+       Images de fond banner-7.jpg et banner-8.jpg à intégrer en phase 6. -->
+  <section id="accueil" aria-roledescription="carrousel" aria-label="Présentation de TS Menuiserie">
+    <ul class="diapos">
+      <li class="diapo" aria-label="Diapositive 1 sur 2">
+        <div>
+          <p>Menuiserie sur mesure</p>
+          <h1>Créations uniques, selon vos envies</h1>
+          <p>Chaque projet est pensé et fabriqué sur mesure, en fonction de vos besoins et de votre espace. Du mobilier personnalisé aux agencements intérieurs, bénéficiez d’un savoir-faire artisanal alliant tradition, précision et finitions soignées.</p>
+          <p><a class="bouton" href="#contact">Me contacter</a></p>
+        </div>
+      </li>
+      <li class="diapo" aria-label="Diapositive 2 sur 2">
+        <div>
+          <p>Escalier</p>
+          <h2>L’art de l’escalier sur mesure</h2>
+          <p>Chaque escalier est une pièce unique, conçue pour s’intégrer harmonieusement à votre intérieur. Formes, matériaux, finitions… tout est pensé sur mesure. Faites confiance à un artisan passionné pour sublimer votre espace avec un escalier en bois alliant style, solidité et précision.</p>
+          <p><a class="bouton" href="#contact">Me contacter</a></p>
+        </div>
+      </li>
+    </ul>
+    <div class="diapos-controles">
+      <button type="button" data-diapo="0" aria-current="true" aria-label="Aller à la diapositive 1"></button>
+      <button type="button" data-diapo="1" aria-current="false" aria-label="Aller à la diapositive 2"></button>
+      <button type="button" class="lecture">Mettre en pause le défilement</button>
+    </div>
   </section>
 
   <section id="presentation">
@@ -475,6 +491,7 @@
   <p><small>TS Menuiserie 2025 ©</small></p>
 </footer>
 
+<script src="/assets/js/hero-slider.js" defer></script>
 <script src="/assets/js/gallery-filter.js" defer></script>
 <script src="/assets/js/counters.js" defer></script>
 <script src="/assets/js/contact-form.js" defer></script>

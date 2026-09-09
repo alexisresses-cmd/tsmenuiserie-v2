@@ -41,6 +41,20 @@
 </form>
 <p id="form-status"></p>
 
+<!-- Fixture carrousel : deux diapositives dans une piste de 200px. -->
+<section id="accueil">
+  <ul class="diapos" style="display:flex;overflow-x:auto;width:200px">
+    <li class="diapo" style="flex:0 0 200px">1</li>
+    <li class="diapo" style="flex:0 0 200px">2</li>
+  </ul>
+  <div class="diapos-controles">
+    <button type="button" data-diapo="0" aria-current="true"></button>
+    <button type="button" data-diapo="1" aria-current="false"></button>
+    <button type="button" class="lecture">Mettre en pause le défilement</button>
+  </div>
+</section>
+
+<script src="../assets/js/hero-slider.js"></script>
 <script src="../assets/js/gallery-filter.js"></script>
 <script src="../assets/js/counters.js"></script>
 <script>
@@ -128,6 +142,27 @@ form.requestSubmit();
 verifie('sans clés EmailJS, l’échec est annoncé et non silencieux',
   statut.dataset.erreur === 'oui' && statut.textContent.includes('06 16 69 92 06'));
 verifie('sans clés EmailJS, la saisie de l’utilisateur est conservée', form.nom.value === 'Dupont');
+
+// --- Carrousel de bannière ---
+const piste = document.querySelector('#accueil .diapos');
+const lecture = document.querySelector('.diapos-controles .lecture');
+const pointCourant = () => [...document.querySelectorAll('[data-diapo]')].map(b => b.getAttribute('aria-current')).join(',');
+
+verifie('les deux diapositives sont dans le HTML', document.querySelectorAll('.diapo').length === 2);
+verifie('le défilement automatique démarre', carrousel.enLecture());
+
+lecture.click();
+verifie('le bouton met le défilement en pause', !carrousel.enLecture());
+verifie('le bouton annonce alors la reprise', lecture.textContent.includes('Reprendre'));
+lecture.click();
+verifie('le bouton relance le défilement', carrousel.enLecture());
+
+document.querySelector('[data-diapo="1"]').click();
+verifie('naviguer à la main coupe le défilement automatique', !carrousel.enLecture());
+
+piste.scrollLeft = 200;              // simule la fin du défilement vers la 2e
+piste.dispatchEvent(new Event('scroll'));
+verifie('le point actif suit la diapositive affichée', pointCourant() === 'false,true');
 
 document.getElementById('resultats').textContent =
   echecs.length ? 'ÉCHECS :\n- ' + echecs.join('\n- ') : 'OK — tous les tests passent';
