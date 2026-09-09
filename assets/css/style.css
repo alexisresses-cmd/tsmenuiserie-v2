@@ -153,6 +153,11 @@ header {
   justify-content: space-between;
   gap: 1rem;
 }
+header > a {
+  display: inline-block;
+  flex: none;      /* sans quoi le logo se comprime quand la navigation est large */
+}
+header > a img { height: 2.25rem; width: auto; }
 
 /* Menu mobile : bouton + aria-expanded, la navigation est son frère direct. */
 .menu-bouton {
@@ -392,6 +397,7 @@ main > h1 { padding-top: var(--section-y); }
   /* Assez de place pour la navigation en clair : le hamburger disparaît et
      le panneau se remet dans le flux. */
   header { padding-block: 1.25rem; }
+  header > a img { height: 3rem; }
   .menu-bouton { display: none; }
   .menu-bouton[aria-expanded="false"] + nav,
   header nav {
@@ -440,7 +446,6 @@ main > h1 { padding-top: var(--section-y); }
 
   .diapo { padding-block: 8rem calc(8rem + 2.5rem); }
   body:has(#accueil) .diapo { padding-block-start: calc(8rem + 3rem); }
-  body:has(#accueil) header > a img { height: 3rem; }
   #accueil h1 { font-size: 4rem; max-width: 20ch; }
 
   /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */
