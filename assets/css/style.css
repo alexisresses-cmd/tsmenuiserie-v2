@@ -241,11 +241,21 @@ button:hover,
 #contact-form fieldset label,
 #contact-form label[for="consentement"] { font-weight: 400; margin-bottom: 0; }
 #contact-form input[type="checkbox"] { accent-color: var(--rouge); flex: none; }
+/* Honeypot : hors écran, hors tabulation, invisible pour un lecteur d'écran. */
+.pot-de-miel {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 #form-status:not(:empty) {
   padding: 0.75rem 1rem;
-  border-inline-start: 3px solid var(--rouge);
+  border-inline-start: 3px solid var(--brun-titre);
   background: var(--gris-clair);
 }
+#form-status[data-erreur="oui"] { border-inline-start-color: var(--rouge); }
 
 /* Pages légales */
 main > h1, main > p, main > section > h2 { max-width: var(--max-largeur); margin-inline: auto; }

@@ -158,7 +158,7 @@
     <p>TS Menuiserie — Marsillargues, Hérault</p>
     <p><a href="mailto:contact@ts-menuiserie.com">contact@ts-menuiserie.com</a></p>
 
-    <form id="contact-form" novalidate>
+    <form id="contact-form">
       <p>
         <label for="nom">Nom</label>
         <input type="text" id="nom" name="nom" autocomplete="family-name" required>
@@ -195,8 +195,9 @@
         <label for="consentement">J’accepte que mes données soient utilisées pour être recontacté(e) conformément à la <a href="/politique-de-confidentialite.html">politique de confidentialité</a></label>
       </p>
 
-      <!-- Honeypot anti-spam (phase 5) : masqué en CSS, jamais rempli par un humain. -->
-      <p hidden aria-hidden="true">
+      <!-- Honeypot anti-spam : sorti de l'écran en CSS plutôt que masqué par
+           l'attribut hidden, que beaucoup de robots savent ignorer. -->
+      <p class="pot-de-miel" aria-hidden="true">
         <label for="societe">Ne pas remplir ce champ</label>
         <input type="text" id="societe" name="societe" tabindex="-1" autocomplete="off">
       </p>
@@ -227,5 +228,6 @@
 
 <script src="/assets/js/gallery-filter.js" defer></script>
 <script src="/assets/js/counters.js" defer></script>
+<script src="/assets/js/contact-form.js" defer></script>
 </body>
 </html>

@@ -27,8 +27,29 @@
   <ul><li><span data-counter="128">0</span></li></ul>
 </section>
 
+<!-- Fixture formulaire : les champs obligatoires d'index.html. -->
+<form id="contact-form">
+  <input type="text" name="nom" required>
+  <input type="text" name="prenom" required>
+  <input type="email" name="email" required>
+  <input type="tel" name="telephone" required>
+  <input type="checkbox" name="categories" value="Cuisine">
+  <textarea name="description"></textarea>
+  <input type="checkbox" name="consentement" required>
+  <p class="pot-de-miel"><input type="text" name="societe"></p>
+  <button type="submit">Envoyer</button>
+</form>
+<p id="form-status"></p>
+
 <script src="../assets/js/gallery-filter.js"></script>
 <script src="../assets/js/counters.js"></script>
+<script>
+  // contact-form.js lit performance.now() au chargement : on lui donne une
+  // horloge pilotable pour tester le délai minimum sans attendre 3 secondes.
+  window.horloge = 0;
+  performance.now = () => window.horloge;
+</script>
+<script src="../assets/js/contact-form.js"></script>
 <script>
 const echecs = [];
 function verifie(nom, condition) { if (!condition) echecs.push(nom); }
@@ -78,6 +99,35 @@ window.animerCompteur(vide);
 window.requestAnimationFrame = vraiRaf;
 performance.now = vraiNow;
 verifie('une cible vide donne 0, pas NaN', vide.textContent === '0');
+
+// --- Formulaire : protections anti-spam ---
+const form = document.getElementById('contact-form');
+const statut = document.getElementById('form-status');
+const remplir = () => {
+  form.nom.value = 'Dupont';
+  form.prenom.value = 'Marie';
+  form.email.value = 'marie@example.com';
+  form.telephone.value = '0612345678';
+  form.consentement.checked = true;
+};
+
+remplir();
+form.requestSubmit();
+verifie('un envoi immédiat est refusé (délai minimum)', statut.dataset.erreur === 'oui');
+
+window.horloge = 5000; // au-delà des 3 s exigées
+remplir();
+form.societe.value = 'robot';
+form.requestSubmit();
+verifie('le honeypot rempli ne signale rien au robot', statut.dataset.erreur === 'non');
+verifie('le honeypot rempli n’envoie pas le formulaire', form.nom.value === '');
+
+remplir();
+form.societe.value = '';
+form.requestSubmit();
+verifie('sans clés EmailJS, l’échec est annoncé et non silencieux',
+  statut.dataset.erreur === 'oui' && statut.textContent.includes('06 16 69 92 06'));
+verifie('sans clés EmailJS, la saisie de l’utilisateur est conservée', form.nom.value === 'Dupont');
 
 document.getElementById('resultats').textContent =
   echecs.length ? 'ÉCHECS :\n- ' + echecs.join('\n- ') : 'OK — tous les tests passent';
