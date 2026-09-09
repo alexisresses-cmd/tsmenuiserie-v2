@@ -104,9 +104,16 @@ main > section {
 .diapos::-webkit-scrollbar { display: none; }
 .diapo {
   flex: 0 0 100%;
+  /* Voile sombre sur la photo : sans lui, le texte blanc et le sur-titre
+     rouge passent sous le seuil de contraste selon la zone de l'image. */
+  background-image: linear-gradient(rgba(34, 23, 21, 0.78), rgba(34, 23, 21, 0.78)), var(--photo);
+  background-size: cover;
+  background-position: center;
   scroll-snap-align: start;
   padding: var(--section-y) var(--gouttiere) calc(var(--section-y) + 2.5rem);
 }
+.diapo:nth-child(1) { --photo: url('/assets/img/banniere-01.webp'); }
+.diapo:nth-child(2) { --photo: url('/assets/img/banniere-02.webp'); }
 .diapo > div { max-width: var(--max-largeur); margin-inline: auto; }
 
 .diapos-controles {
@@ -243,7 +250,12 @@ a.bouton:hover {
   margin-bottom: 0.5rem;
 }
 
-#galerie img { border-radius: var(--radius); }
+#galerie img {
+  border-radius: var(--radius);
+  width: 100%;
+  aspect-ratio: 4 / 3;   /* cadrage homogène : les photos n'ont pas toutes le même format */
+  object-fit: cover;
+}
 
 #chiffres li { font-family: var(--font-label); font-size: 1.125rem; }
 #chiffres [data-counter] {
