@@ -161,13 +161,19 @@ button:hover,
 }
 
 /* Listes de contenu : services, projets, étapes, chiffres, avis */
+/* Grilles fluides : auto-fit + minmax fait le passage 1 → 2 → 3 colonnes
+   tout seul, sans media query. Une seule valeur à régler par grille. */
 #services ul, #galerie, #etapes ol, #chiffres ul, #avis ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
 }
+#galerie { grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr)); }
+#chiffres ul { grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); }
+#avis ul { grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); }
 #services li, #avis li, #etapes li {
   padding: 1.5rem;
   border: 1px solid var(--bordure);
@@ -248,4 +254,71 @@ main > h1 { padding-top: var(--section-y); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
+
+
+/*** Responsive — au-delà des grilles fluides ci-dessus, seuls la barre de
+     navigation, l'échelle typographique et les rythmes verticaux changent. ***/
+
+/* Tablette */
+@media (min-width: 48em) {
+  :root {
+    --gouttiere: 2rem;
+    --section-y: 5rem;
+  }
+  h1 { font-size: 3rem; }
+  h2 { font-size: 2.25rem; }
+
+  /* En-tête sur une seule ligne : logo à gauche, navigation à droite. */
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 1.25rem;
+  }
+  header nav ul { margin-top: 0; }
+
+  /* Le texte des sections d'intro reste lisible : pas de lignes à rallonge. */
+  #accueil > p, #escalier > p, #presentation p { max-width: 46rem; }
+
+  footer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+    gap: 1.5rem 2rem;
+    padding-block: 2.5rem;
+  }
+  footer nav ul { margin-top: 0; flex-direction: column; }
+
+  /* Le formulaire passe en deux colonnes sur les champs courts. */
+  #contact-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 1rem;
+  }
+  #contact-form > p { margin-bottom: 1rem; }
+  #contact-form fieldset,
+  #contact-form p:has(> textarea),
+  #contact-form p:has(> #consentement),
+  #contact-form p:has(> button),
+  #form-status { grid-column: 1 / -1; }
+  #contact-form fieldset p { display: inline-flex; margin: 0 1.5rem 0.5rem 0; }
+}
+
+/* Desktop */
+@media (min-width: 64em) {
+  :root { --section-y: 6.5rem; }
+  h1 { font-size: 3.5rem; }
+
+  /* Les sections pleine largeur gardent leur contenu dans le conteneur. */
+  #accueil, #escalier, #chiffres, header, footer {
+    padding-inline: max(var(--gouttiere), (100vw - var(--max-largeur)) / 2 + var(--gouttiere));
+  }
+
+  #accueil { padding-block: 8rem; }
+  #accueil h1 { font-size: 4rem; max-width: 20ch; }
+
+  /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */
+  #presentation p { max-width: 60ch; }
 }
