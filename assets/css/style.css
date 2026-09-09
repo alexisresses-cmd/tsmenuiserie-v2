@@ -1,0 +1,251 @@
+/* TS Menuiserie — identité visuelle reprise du site actuel (thème Craftmax).
+   Sources : craftmax/assets/css/style.css (:root, typographies) et les
+   surcharges Elementor de la page d'accueil.
+   Mobile-first : les media queries desktop arrivent en phase 3. */
+
+:root {
+  /* Palette */
+  --rouge: #d90429;          /* --thm-base du thème : accent, boutons, liens actifs */
+  --rouge-fonce: #ca1d1d;    /* --thm-secondary : survol */
+  --brun-tres-fonce: #221715;/* fond des sections sombres */
+  --brun-titre: #29231f;     /* couleur des titres */
+  --texte: #444444;
+  --creme: #eeead8;
+  --gris-clair: #f5f5f5;
+  --bordure: #dddddd;
+  --blanc: #ffffff;
+
+  /* Typographies */
+  --font-corps: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-titre: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-label: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Rythme */
+  --gouttiere: 1rem;
+  --section-y: 3.5rem;
+  --max-largeur: 1200px;
+  --radius: 4px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--font-corps);
+  font-size: 1.125rem;   /* 18px, comme le thème actuel */
+  line-height: 1.556;    /* 28px */
+  font-weight: 400;
+  color: var(--texte);
+  background: var(--blanc);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-titre);
+  color: var(--brun-titre);
+  line-height: 1.2;
+  margin: 0 0 0.5em;
+}
+h1 { font-size: 2.25rem; font-weight: 700; }
+h2 { font-size: 1.75rem; font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 600; }
+
+p { margin: 0 0 1rem; }
+
+a { color: var(--rouge); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { color: var(--rouge-fonce); }
+
+img { max-width: 100%; height: auto; display: block; }
+
+:focus-visible { outline: 2px solid var(--rouge); outline-offset: 2px; }
+
+/* Sur-titre rouge en capitales, présent au-dessus de chaque titre de section
+   sur le site actuel ("MENUISERIE", "ESCALIER", "AVIS"...). */
+main > section > p:first-child {
+  font-family: var(--font-label);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--rouge);
+  margin-bottom: 0.5rem;
+}
+
+/* Sections */
+main > section {
+  padding: var(--section-y) var(--gouttiere);
+  max-width: var(--max-largeur);
+  margin-inline: auto;
+}
+#accueil, #escalier {
+  background: var(--brun-tres-fonce);
+  color: var(--blanc);
+  max-width: none;
+}
+#accueil h1, #escalier h2 { color: var(--blanc); }
+#chiffres { background: var(--creme); max-width: none; }
+
+/* En-tête / pied de page */
+header, footer {
+  padding: 1rem var(--gouttiere);
+  background: var(--brun-tres-fonce);
+  color: var(--blanc);
+}
+header > a {
+  font-family: var(--font-titre);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--blanc);
+  text-decoration: none;
+}
+header nav ul, footer nav ul {
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+}
+header nav a, footer nav a, footer address a {
+  font-family: var(--font-label);
+  font-weight: 500;
+  color: var(--blanc);
+  text-decoration: none;
+}
+header nav a:hover, footer nav a:hover { color: var(--rouge); }
+footer address { font-style: normal; margin-bottom: 1rem; }
+
+/* Boutons et liens d'action */
+button,
+#accueil a[href="#contact"],
+#escalier a[href="#contact"] {
+  display: inline-block;
+  font-family: var(--font-label);
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border: 1px solid var(--rouge);
+  border-radius: var(--radius);
+  background: var(--rouge);
+  color: var(--blanc);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+button:hover,
+#accueil a[href="#contact"]:hover,
+#escalier a[href="#contact"]:hover {
+  background: var(--rouge-fonce);
+  border-color: var(--rouge-fonce);
+  color: var(--blanc);
+}
+
+/* Filtres de la galerie : boutons secondaires, l'actif passe en rouge plein. */
+#projets [role="group"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+#projets [role="group"] button {
+  background: transparent;
+  color: var(--brun-titre);
+  border-color: var(--bordure);
+  padding: 0.5rem 1rem;
+}
+#projets [role="group"] button:hover,
+#projets [role="group"] button[aria-pressed="true"] {
+  background: var(--rouge);
+  border-color: var(--rouge);
+  color: var(--blanc);
+}
+
+/* Listes de contenu : services, projets, étapes, chiffres, avis */
+#services ul, #galerie, #etapes ol, #chiffres ul, #avis ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+}
+#services li, #avis li, #etapes li {
+  padding: 1.5rem;
+  border: 1px solid var(--bordure);
+  border-radius: var(--radius);
+  background: var(--blanc);
+}
+#services h3, #etapes h3 { margin-bottom: 0; }
+
+#etapes { counter-reset: etape; }
+#etapes li { counter-increment: etape; }
+#etapes h3::before {
+  content: counter(etape, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-label);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--rouge);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+#galerie img { border-radius: var(--radius); }
+
+#chiffres li { font-family: var(--font-label); font-size: 1.125rem; }
+#chiffres [data-counter] {
+  display: block;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--rouge);
+  line-height: 1;
+}
+
+#avis figure { margin: 0; }
+#avis blockquote { margin: 0 0 1rem; font-size: 1.125rem; font-style: italic; }
+#avis figcaption { font-family: var(--font-label); color: var(--brun-titre); }
+
+/* FAQ */
+#faq h3 { margin-top: 2rem; }
+
+/* Formulaire */
+#contact-form { max-width: 40rem; margin-top: 2rem; }
+#contact-form label { display: block; font-family: var(--font-label); font-weight: 500; margin-bottom: 0.25rem; }
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form input[type="tel"],
+#contact-form textarea {
+  width: 100%;
+  font: inherit;
+  padding: 0.65rem 0.75rem;
+  color: var(--texte);
+  background: var(--gris-clair);
+  border: 1px solid var(--bordure);
+  border-radius: var(--radius);
+}
+#contact-form input:focus, #contact-form textarea:focus { border-color: var(--rouge); }
+#contact-form fieldset {
+  margin: 0 0 1rem;
+  padding: 1rem;
+  border: 1px solid var(--bordure);
+  border-radius: var(--radius);
+}
+#contact-form legend { font-family: var(--font-label); font-weight: 500; padding-inline: 0.5rem; }
+#contact-form fieldset p,
+#contact-form p:has(> #consentement) { display: flex; align-items: baseline; gap: 0.5rem; }
+#contact-form fieldset label,
+#contact-form label[for="consentement"] { font-weight: 400; margin-bottom: 0; }
+#contact-form input[type="checkbox"] { accent-color: var(--rouge); flex: none; }
+#form-status:not(:empty) {
+  padding: 0.75rem 1rem;
+  border-inline-start: 3px solid var(--rouge);
+  background: var(--gris-clair);
+}
+
+/* Pages légales */
+main > h1, main > p, main > section > h2 { max-width: var(--max-largeur); margin-inline: auto; }
+main > h1, main > p { padding-inline: var(--gouttiere); }
+main > h1 { padding-top: var(--section-y); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
