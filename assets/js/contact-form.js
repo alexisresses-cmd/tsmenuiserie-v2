@@ -6,6 +6,17 @@
      À REMPLIR — clés de la phase 5 du cahier des charges.
      Tant que ces constantes sont vides, le formulaire refuse d'envoyer
      et affiche un message : pas d'échec silencieux.
+
+     Ces quatre valeurs sont publiques par conception : elles partent dans
+     le navigateur de chaque visiteur, un dépôt privé n'y changerait rien.
+     Ne JAMAIS mettre ici la « Private Key » d'EmailJS ni la clé secrète
+     reCAPTCHA — le code n'en a pas besoin, elles restent côté serveur.
+
+     Ce qui protège le compte, ce n'est donc pas le secret des clés :
+       - liste blanche de domaines dans EmailJS (n'accepter que
+         ts-menuiserie.com),
+       - vérification reCAPTCHA activée dans le template EmailJS,
+       - restriction de la clé de site reCAPTCHA au domaine, côté Google.
      ------------------------------------------------------------------ */
   const EMAILJS_CLE_PUBLIQUE = '';   // EmailJS > Account > General > Public Key
   const EMAILJS_SERVICE_ID   = '';   // EmailJS > Email Services
