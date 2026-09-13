@@ -438,7 +438,7 @@ main > h1 { padding-top: var(--section-y); }
   }
 
   /* Le texte des sections d'intro reste lisible : pas de lignes à rallonge. */
-  .diapo p, #presentation p { max-width: 46rem; }
+  .diapo p { max-width: 46rem; }
 
   footer {
     display: grid;
@@ -464,6 +464,4 @@ main > h1 { padding-top: var(--section-y); }
   body:has(#accueil) .diapo { padding-block-start: calc(8rem + 3rem); }
   #accueil h1, #accueil h2 { font-size: 4rem; max-width: 20ch; }
 
-  /* Présentation : le texte ne s'étale pas sur toute la largeur de l'écran. */
-  #presentation p { max-width: 60ch; }
 }
