@@ -319,6 +319,62 @@ a.bouton:hover {
   margin-bottom: 0.5rem;
 }
 
+/* Vignettes cliquables : le bouton ne doit pas ressembler à un bouton. */
+.vignette {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: var(--radius);
+  cursor: zoom-in;
+  overflow: hidden;
+}
+.vignette img { transition: transform 0.3s; }
+.vignette:hover img, .vignette:focus-visible img { transform: scale(1.04); }
+
+/* Visionneuse */
+#visionneuse {
+  max-width: 100vw;
+  max-height: 100vh;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  overflow: hidden;
+}
+#visionneuse::backdrop { background: rgba(34, 23, 21, 0.92); }
+#visionneuse img {
+  max-width: min(92vw, 1400px);
+  max-height: 86vh;
+  width: auto;
+  margin: 7vh auto 0;
+  border-radius: var(--radius);
+  object-fit: contain;
+}
+.visionneuse-position {
+  font-family: var(--font-label);
+  color: var(--blanc);
+  text-align: center;
+  margin: 1rem 0 0;
+}
+#visionneuse button {
+  position: fixed;
+  padding: 0;
+  width: 3rem;
+  height: 3rem;
+  font-size: 1.75rem;
+  line-height: 1;
+  background: rgba(0, 0, 0, 0.45);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--blanc);
+}
+#visionneuse button:hover { background: var(--rouge); border-color: var(--rouge); }
+#visionneuse [data-action="precedent"] { left: 1rem; top: 50%; transform: translateY(-50%); }
+#visionneuse [data-action="suivant"]   { right: 1rem; top: 50%; transform: translateY(-50%); }
+#visionneuse [data-action="fermer"]    { right: 1rem; top: 1rem; }
+
 #galerie img {
   border-radius: var(--radius);
   width: 100%;

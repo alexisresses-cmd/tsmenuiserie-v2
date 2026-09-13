@@ -16,11 +16,19 @@
     <button type="button" data-filter="escalier" aria-pressed="false">Escalier</button>
   </div>
   <ul id="galerie">
-    <li data-category="cuisine">c1</li>
-    <li data-category="cuisine">c2</li>
-    <li data-category="escalier">e1</li>
-    <li data-category="porte-fenetre">p1</li>
+    <li data-category="cuisine"><button type="button" class="vignette"><img src="/assets/img/projets/cuisine/cuisine-01.webp" alt="c1"></button></li>
+    <li data-category="cuisine"><button type="button" class="vignette"><img src="/assets/img/projets/cuisine/cuisine-02.webp" alt="c2"></button></li>
+    <li data-category="escalier"><button type="button" class="vignette"><img src="/assets/img/projets/escalier/escalier-01.webp" alt="e1"></button></li>
+    <li data-category="porte-fenetre"><button type="button" class="vignette"><img src="/assets/img/projets/porte-fenetre/porte-fenetre-01.webp" alt="p1"></button></li>
   </ul>
+
+  <dialog id="visionneuse" aria-label="Photo en grand">
+    <img alt="">
+    <p class="visionneuse-position" aria-live="polite"></p>
+    <button type="button" data-action="precedent"></button>
+    <button type="button" data-action="suivant"></button>
+    <button type="button" data-action="fermer"></button>
+  </dialog>
 </section>
 
 <section id="chiffres">
@@ -30,6 +38,7 @@
 <script src="../assets/js/menu.js"></script>
 <script src="../assets/js/hero-slider.js"></script>
 <script src="../assets/js/gallery-filter.js"></script>
+<script src="../assets/js/gallery-lightbox.js"></script>
 <script src="../assets/js/counters.js"></script>
 <script>
 const echecs = [];
@@ -80,6 +89,42 @@ window.animerCompteur(vide);
 window.requestAnimationFrame = vraiRaf;
 performance.now = vraiNow;
 verifie('une cible vide donne 0, pas NaN', vide.textContent === '0');
+
+// --- Visionneuse ---
+const visionneuse = document.getElementById('visionneuse');
+const vignettes = [...document.querySelectorAll('#galerie .vignette')];
+const grandeImage = visionneuse.querySelector('img');
+const position = visionneuse.querySelector('.visionneuse-position');
+const nom = () => grandeImage.alt;
+
+vignettes[2].click();   // la 3e photo, toutes catégories affichées
+verifie('cliquer une vignette ouvre la visionneuse', visionneuse.open);
+verifie('la visionneuse montre la photo cliquée', nom() === 'e1');
+verifie('la position est affichée', position.textContent === '3 / 4');
+
+visionneuse.querySelector('[data-action="suivant"]').click();
+verifie('le bouton suivant avance d’une photo', nom() === 'p1');
+visionneuse.querySelector('[data-action="suivant"]').click();
+verifie('après la dernière photo, on revient à la première', nom() === 'c1');
+visionneuse.querySelector('[data-action="precedent"]').click();
+verifie('avant la première photo, on repart de la dernière', nom() === 'p1');
+
+visionneuse.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowLeft', bubbles: true }));
+verifie('la flèche gauche recule d’une photo', nom() === 'e1');
+
+visionneuse.querySelector('[data-action="fermer"]').click();
+verifie('le bouton fermer referme la visionneuse', !visionneuse.open);
+
+// Un filtre actif borne la navigation aux seules photos affichées.
+document.querySelector('[data-filter="cuisine"]').click();
+vignettes[0].click();
+verifie('sous filtre, la position ne compte que les photos visibles', position.textContent === '1 / 2');
+visionneuse.querySelector('[data-action="suivant"]').click();
+verifie('sous filtre, suivant reste dans la catégorie', nom() === 'c2');
+visionneuse.querySelector('[data-action="suivant"]').click();
+verifie('sous filtre, la boucle se fait sur 2 photos', nom() === 'c1');
+visionneuse.close();
+document.querySelector('[data-filter="all"]').click();
 
 document.getElementById('resultats').textContent =
   echecs.length ? 'ÉCHECS :\n- ' + echecs.join('\n- ') : 'OK — tous les tests passent';
