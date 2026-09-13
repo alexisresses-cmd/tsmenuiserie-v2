@@ -364,49 +364,22 @@ a.bouton:hover {
 #faq h3 { margin-top: 2rem; }
 #faq h3:first-of-type { margin-top: 0; }
 
-/* Formulaire */
-#contact-form { max-width: 40rem; margin-top: 2rem; }
-#contact-form label { display: block; font-family: var(--font-label); font-weight: 500; margin-bottom: 0.25rem; }
-#contact-form input[type="text"],
-#contact-form input[type="email"],
-#contact-form input[type="tel"],
-#contact-form textarea {
-  width: 100%;
-  font: inherit;
-  padding: 0.65rem 0.75rem;
-  color: var(--texte);
-  background: var(--gris-clair);
+/* Coordonnées de contact */
+.coordonnees {
+  list-style: none;
+  margin: 2rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+}
+.coordonnees li {
+  padding: 1.5rem;
   border: 1px solid var(--bordure);
   border-radius: var(--radius);
 }
-#contact-form input:focus, #contact-form textarea:focus { border-color: var(--rouge); }
-#contact-form fieldset {
-  margin: 0 0 1rem;
-  padding: 1rem;
-  border: 1px solid var(--bordure);
-  border-radius: var(--radius);
-}
-#contact-form legend { font-family: var(--font-label); font-weight: 500; padding-inline: 0.5rem; }
-#contact-form fieldset p,
-#contact-form p:has(> #consentement) { display: flex; align-items: baseline; gap: 0.5rem; }
-#contact-form fieldset label,
-#contact-form label[for="consentement"] { font-weight: 400; margin-bottom: 0; }
-#contact-form input[type="checkbox"] { accent-color: var(--rouge); flex: none; }
-/* Honeypot : hors écran, hors tabulation, invisible pour un lecteur d'écran. */
-.pot-de-miel {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-}
-
-#form-status:not(:empty) {
-  padding: 0.75rem 1rem;
-  border-inline-start: 3px solid var(--brun-titre);
-  background: var(--gris-clair);
-}
-#form-status[data-erreur="oui"] { border-inline-start-color: var(--rouge); }
+.coordonnees address { font-style: normal; margin-bottom: 1rem; }
+.coordonnees .bouton { margin-bottom: 1rem; }
 
 /* Pages légales */
 main > h1, main > p, main > section > h2 { max-width: var(--max-largeur); margin-inline: auto; }
@@ -475,19 +448,6 @@ main > h1 { padding-top: var(--section-y); }
   }
   footer nav ul { margin-top: 0; flex-direction: column; }
 
-  /* Le formulaire passe en deux colonnes sur les champs courts. */
-  #contact-form {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0 1rem;
-  }
-  #contact-form > p { margin-bottom: 1rem; }
-  #contact-form fieldset,
-  #contact-form p:has(> textarea),
-  #contact-form p:has(> #consentement),
-  #contact-form p:has(> button),
-  #form-status { grid-column: 1 / -1; }
-  #contact-form fieldset p { display: inline-flex; margin: 0 1.5rem 0.5rem 0; }
 }
 
 /* Desktop */

@@ -703,64 +703,29 @@
 
   <section id="contact">
     <h2>Obtenez un devis dès maintenant</h2>
-    <p>Un service réalisé par des menuisiers qualifiés et vérifiés, selon le créneau horaire qui vous convient !</p>
+    <p>Un service réalisé par des menuisiers qualifiés et vérifiés, selon le créneau horaire qui vous convient ! Décrivez-moi votre projet par téléphone ou par email, le devis est établi après une première rencontre.</p>
 
-    <p>Une question ? <a href="tel:+33616699206">06 16 69 92 06</a></p>
-    <p>Lundi au vendredi, 9h00 - 19h00</p>
-    <address>
-      TS Menuiserie<br>
-      6 boulevard Victor Hugo<br>
-      34590 Marsillargues, Hérault
-    </address>
-    <p><a href="mailto:contact@ts-menuiserie.com">contact@ts-menuiserie.com</a></p>
-
-    <form id="contact-form">
-      <p>
-        <label for="nom">Nom</label>
-        <input type="text" id="nom" name="nom" autocomplete="family-name" required>
-      </p>
-      <p>
-        <label for="prenom">Prénom</label>
-        <input type="text" id="prenom" name="prenom" autocomplete="given-name" required>
-      </p>
-      <p>
-        <label for="email">Email</label>
-        <input type="email" id="email" name="email" autocomplete="email" required>
-      </p>
-      <p>
-        <label for="telephone">Téléphone</label>
-        <input type="tel" id="telephone" name="telephone" autocomplete="tel" required>
-      </p>
-
-      <fieldset>
-        <legend>Catégorie de projet</legend>
-        <p><input type="checkbox" id="cat-cuisine" name="categories" value="Cuisine"><label for="cat-cuisine">Cuisine</label></p>
-        <p><input type="checkbox" id="cat-escalier" name="categories" value="Escalier"><label for="cat-escalier">Escalier</label></p>
-        <p><input type="checkbox" id="cat-meuble" name="categories" value="Meubles sur mesure"><label for="cat-meuble">Meubles sur mesure</label></p>
-        <p><input type="checkbox" id="cat-amenagement" name="categories" value="Aménagement"><label for="cat-amenagement">Aménagement</label></p>
-        <p><input type="checkbox" id="cat-porte-fenetre" name="categories" value="Porte et fenêtre"><label for="cat-porte-fenetre">Porte et fenêtre</label></p>
-      </fieldset>
-
-      <p>
-        <label for="description">Description du projet</label>
-        <textarea id="description" name="description" rows="6"></textarea>
-      </p>
-
-      <p>
-        <input type="checkbox" id="consentement" name="consentement" required>
-        <label for="consentement">J’accepte que mes données soient utilisées pour être recontacté(e) conformément à la <a href="/politique-de-confidentialite.html">politique de confidentialité</a></label>
-      </p>
-
-      <!-- Honeypot anti-spam : sorti de l'écran en CSS plutôt que masqué par
-           l'attribut hidden, que beaucoup de robots savent ignorer. -->
-      <p class="pot-de-miel" aria-hidden="true">
-        <label for="societe">Ne pas remplir ce champ</label>
-        <input type="text" id="societe" name="societe" tabindex="-1" autocomplete="off">
-      </p>
-
-      <p><button type="submit">Envoyer</button></p>
-      <p role="status" aria-live="polite" id="form-status"></p>
-    </form>
+    <ul class="coordonnees">
+      <li>
+        <h3>Par téléphone</h3>
+        <p><a class="bouton" href="tel:+33616699206">06 16 69 92 06</a></p>
+        <p>Du lundi au vendredi, de 9h00 à 19h00.</p>
+      </li>
+      <li>
+        <h3>Par email</h3>
+        <p><a class="bouton" href="mailto:contact@ts-menuiserie.com?subject=Demande%20de%20devis">contact@ts-menuiserie.com</a></p>
+        <p>Précisez le type de projet (cuisine, escalier, meuble sur mesure, aménagement, porte ou fenêtre), la pièce concernée et vos délais.</p>
+      </li>
+      <li>
+        <h3>À l’atelier</h3>
+        <address>
+          TS Menuiserie<br>
+          6 boulevard Victor Hugo<br>
+          34590 Marsillargues, Hérault
+        </address>
+        <p>Intervention dans l’Hérault et le Gard.</p>
+      </li>
+    </ul>
   </section>
 
 </main>
@@ -786,6 +751,5 @@
 <script src="/assets/js/hero-slider.js" defer></script>
 <script src="/assets/js/gallery-filter.js" defer></script>
 <script src="/assets/js/counters.js" defer></script>
-<script src="/assets/js/contact-form.js" defer></script>
 </body>
 </html>

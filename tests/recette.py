@@ -56,13 +56,6 @@ for f in PAGES:
     for a, b in zip(niv, niv[1:]):
         if b > a + 1: pb.append(f'{f} : saut de titre h{a} -> h{b}')
 
-# --- formulaire : chaque champ a un label ---
-s = lire('index.html')
-form = s[s.index('<form id="contact-form"'):s.index('</form>')]
-labels = set(re.findall(r'<label for="([^"]+)"', form))
-for cid in re.findall(r'<(?:input|textarea)[^>]*id="([^"]+)"', form):
-    if cid not in labels: pb.append(f'formulaire : champ #{cid} sans label')
-
 # --- images : alt présent et unique (exigence SEO sur la galerie projets) ---
 for f in PAGES:
     alts = []

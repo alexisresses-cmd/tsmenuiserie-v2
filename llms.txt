@@ -34,10 +34,10 @@ Hérault et Gard, depuis l'atelier de Marsillargues (6 boulevard Victor Hugo, 34
 - Téléphone : +33 6 16 69 92 06
 - Email : contact@ts-menuiserie.com
 - Horaires : du lundi au vendredi, de 9h00 à 19h00
-- Devis : par le formulaire de contact du site, ou par téléphone
+- Devis : par téléphone ou par email, établi après une première rencontre
 
 ## Pages
 
-- [Accueil](https://ts-menuiserie.com/) : présentation, services, projets réalisés, avis clients, formulaire de devis
+- [Accueil](https://ts-menuiserie.com/) : présentation, services, projets réalisés, avis clients, coordonnées
 - [Mentions légales](https://ts-menuiserie.com/mentions-legales.html)
 - [Politique de confidentialité](https://ts-menuiserie.com/politique-de-confidentialite.html)
